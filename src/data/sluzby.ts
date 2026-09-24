@@ -10,7 +10,7 @@ export type Sluzba = {
   h1: string;
   metaTitle: string;
   metaDescription: string;
-  obsah: { nadpis: string; text: string }[];
+  obsah: { nadpis: string; text: string; variant?: 'cena' }[];
 };
 
 export const sluzby: Sluzba[] = [
@@ -34,12 +34,26 @@ export const sluzby: Sluzba[] = [
         text: 'Ak je omietka celistvá a problémom sú riasy, plesne, prach alebo tmavé stekance, čistenie vráti fasáde pôvodný vzhľad za približne 30 % ceny nového náteru. Premaľovanie má zmysel až vtedy, keď je podklad popraskaný alebo farba odchádza.',
       },
       {
-        nadpis: 'Ako čistíme',
-        text: 'Nízkotlakový oplach horúcou vodou v kombinácii s ekologickou chémiou. Nízky tlak znamená, že sa nedostaneme pod omietku ani nepoškodíme štruktúru — vysokotlakové čistenie fasád je práve to, čoho sa ľudia právom boja.',
+        nadpis: 'Ako čistenie prebieha',
+        text: 'Najprv na malej ploche urobíme skúšobnú vzorku, aby ste videli výsledok pred objednávkou. Potom fasádu opláchneme nízkym tlakom horúcou vodou a chémiou, ktorá riasy a usadeniny uvoľní. Nízky tlak ostáva na povrchu omietky a neotvorí ju. Vysoký tlak, ktorého sa pri fasádach ľudia právom boja, nepoužívame. Na záver povrch opláchneme a necháme uschnúť.',
       },
       {
         nadpis: 'Impregnácia po čistení',
-        text: 'Po vyčistení nanášame hydrofóbnu impregnáciu so zárukou 5 rokov, za príplatok až 10. Voda po fasáde stečie a riasy nemajú na čom rásť, takže povrch zostáva čistý výrazne dlhšie.',
+        text: 'Po vyschnutí nanesieme hydrofóbnu impregnáciu. Voda po fasáde stečie a riasy nemajú na vlhkom podklade na čom rásť, takže povrch zostane čistý dlhšie než po samotnom umytí. Záruka na impregnáciu je 5 rokov, za príplatok až 10. Impregnácia nie je náter: farbu omietky nemení, len zníži nasiakavosť.',
+      },
+      {
+        nadpis: 'Čo z fasády reálne odstránime',
+        text: 'Dole idú riasy, machy, lišajníky a plesne, ďalej smog, tmavé stekance pod parapetmi, pavučiny a zvyšky po lastovičkách. Čistenie neopraví praskliny, odlupujúcu sa omietku ani vyblednutú farbu. Ak je podklad poškodený, povieme vám to pri vzorke a čistenie neodporučíme.',
+      },
+      {
+        nadpis: 'Aké typy fasád čistíme',
+        // TODO overiť u klienta
+        text: 'Čistíme zateplenú silikónovú a akrylátovú omietku, brizolit, štuk, kameň, tehlu a obklad. Postup volíme podľa nasiakavosti povrchu: na mäkký štuk ide nižší tlak a dlhšie pôsobenie chémie, na kameň a tehlu iný prostriedok. Ak si nie ste istí, z čoho fasáda je, stačí fotka zblízka — podľa štruktúry to spoznáme.',
+      },
+      {
+        nadpis: 'Čo môže cenu zvýšiť',
+        variant: 'cena',
+        text: 'Základná sadzba platí pre bežne dostupnú fasádu s jedným priechodom. Vopred, nie až na mieste, vám povieme, ak cenu zdvihne niečo z tohto: ťažká dostupnosť bez plošiny, extrémne znečistenie, ktoré potrebuje druhý priechod, veľmi členitá fasáda, alebo dlhá dojazdová vzdialenosť. Rozdiel uvidíte v cenovej ponuke skôr, než sa dohodneme na termíne.',
       },
     ],
   },

@@ -40,7 +40,7 @@ const { s } = Astro.props;
   <section class="sec">
     <div class="wrap uzky">
       {s.obsah.map((b) => (
-        <div class="blok">
+        <div class:list={['blok', { 'blok--cena': b.variant === 'cena' }]}>
           <h2>{b.nadpis}</h2>
           <p>{b.text}</p>
         </div>
@@ -82,6 +82,12 @@ const { s } = Astro.props;
   .blok + .blok { margin-top: 40px; }
   .blok h2 { font-size: clamp(22px, 2.6vw, 28px); }
   .blok p { margin-top: 12px; color: var(--muted); font-size: 16.5px; line-height: 1.7; }
+  .blok--cena {
+    background: var(--sand);
+    border-left: 3px solid var(--navy);
+    padding: 22px 24px 26px;
+  }
+  .blok--cena p { color: var(--text); }
   .poznamka { margin-top: 18px; font-size: 15px; }
   .poznamka a { color: var(--navy); font-weight: 600; text-decoration: none; }
   .uzky-form { max-width: 720px; }
