@@ -27,4 +27,11 @@ export const firma = {
   // Na starom webe visel widget s 8 recenziami, najnovšia zo septembra 2023.
   google: { hodnotenie: 5.0, pocetRecenzii: 119, overeneDna: '2026-09-23' },
   referencie: ['Lidl Nitra', 'Red Oak Nitra', 'Autosalón BMW'],
+  // null = fotka ešte nie je v public/img/. Keď príde, prepíš len cestu.
+  fotky: {
+    hero: null as string | null,
+    praca: null as string | null,
+    baPred: null as string | null,
+    baPo: null as string | null,
+  },
 };

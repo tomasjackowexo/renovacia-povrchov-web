@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import PriceCalculator from '../components/PriceCalculator.astro';
 import ServiceCard from '../components/ServiceCard.astro';
@@ -18,29 +19,22 @@ import { firma } from '../data/firma';
   description="Vyčistíme fasádu bez maľovania — úspora približne 70 % oproti novému náteru. Skúšobná vzorka na mieste, impregnácia so zárukou 5 rokov. Hodnotenie 5,0 zo 119 recenzií."
   faq={faq}
 >
-  <!-- HERO — jediný tmavý blok v hornej časti -->
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow svetly">Čistenie a ochrana povrchov</p>
-        <h1>Fasáda ako nová.<br />Bez maľovania, bez lešenia.</h1>
-        <p class="lede">
-          Odstránime riasy, mach a tmavé škvrny nízkotlakovým oplachom horúcou vodou.
-          Ak je omietka v poriadku, vyjde to približne o 70 % lacnejšie než nový náter.
-        </p>
-        <ul class="usp">
-          <li>Skúšobná vzorka na mieste — výsledok vidíte pred objednávkou</li>
-          <li>Impregnácia so zárukou 5 rokov, za príplatok až 10</li>
-          <li>Platíte až po dokončení, žiadna záloha vopred</li>
-        </ul>
-        <div class="akcie">
-          <a class="btn btn-invert btn-lg" href="/kontakt/">Chcem cenovú ponuku</a>
-          <a class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
-        </div>
-      </div>
-      <PriceCalculator />
-    </div>
-  </section>
+  <Hero
+    eyebrow="Čistenie a ochrana povrchov"
+    nadpis="Fasáda ako nová.<br />Bez maľovania, bez lešenia."
+    perex="Odstránime riasy, mach a tmavé škvrny nízkotlakovým oplachom horúcou vodou. Ak je omietka v poriadku, vyjde to približne o 70 % lacnejšie než nový náter."
+    usp={[
+      'Skúšobná vzorka na mieste — výsledok vidíte pred objednávkou',
+      'Impregnácia so zárukou 5 rokov, za príplatok až 10',
+      'Platíte až po dokončení, žiadna záloha vopred',
+    ]}
+    fotka={firma.fotky.hero}
+    fotkaAlt="Vyčistená fasáda rodinného domu"
+  >
+    <a slot="akcie" class="btn btn-invert btn-lg" href="/kontakt/">Chcem cenovú ponuku</a>
+    <a slot="akcie" class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+    <PriceCalculator />
+  </Hero>
 
   <TrustBar />
 
@@ -131,20 +125,6 @@ import { firma } from '../data/firma';
 </Base>
 
 <style>
-  .hero { background: var(--navy); color: #fff; }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; padding-block: 84px 92px; }
-  .hero h1 { font-size: clamp(32px, 4.6vw, 54px); font-weight: 800; color: #fff; margin-top: 16px; }
-  .eyebrow.svetly { color: rgba(255, 255, 255, 0.66); }
-  .lede { margin-top: 20px; font-size: 18px; color: rgba(255, 255, 255, 0.88); max-width: 46ch; }
-  .usp { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 12px; }
-  .usp li { padding-left: 28px; position: relative; font-size: 15.5px; color: #fff; }
-  .usp li::before {
-    content: ''; position: absolute; left: 0; top: 8px; width: 14px; height: 8px;
-    border-left: 2.4px solid #fff; border-bottom: 2.4px solid #fff; transform: rotate(-45deg);
-  }
-  .akcie { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
-  @media (max-width: 940px) { .hero .wrap { grid-template-columns: 1fr; gap: 34px; padding-block: 52px 60px; } }
-
   .mriezka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
   @media (max-width: 880px) { .mriezka { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .mriezka { grid-template-columns: 1fr; } }

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import TrustBar from '../components/TrustBar.astro';
 import PriceTable from '../components/PriceTable.astro';
 import Steps from '../components/Steps.astro';
@@ -22,20 +23,17 @@ const { s } = Astro.props;
   faq={s.slug === 'cistenie-fasady' ? faq : null}
   drobcekyNazov={s.nazov}
 >
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow svetly">{s.nazov}</p>
-        <h1>{s.h1}</h1>
-        <p class="lede">{s.perex}</p>
-        <div class="akcie">
-          <a class="btn btn-invert btn-lg" href="#formular">Chcem cenovú ponuku</a>
-          <a class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
-        </div>
-      </div>
-      <div class="foto"><Placeholder popis={`${s.nazov.toLowerCase()} — reálna realizácia`} pomer="4 / 3" /></div>
-    </div>
-  </section>
+  <Hero
+    eyebrow={s.nazov}
+    nadpis={s.h1}
+    perex={s.perex}
+    fotka={firma.fotky.hero}
+    fotkaAlt={`${s.nazov} — reálna realizácia`}
+  >
+    <a slot="akcie" class="btn btn-invert btn-lg" href="#formular">Chcem cenovú ponuku</a>
+    <a slot="akcie" class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+    <div class="foto"><Placeholder popis={`${s.nazov.toLowerCase()} — reálna realizácia`} pomer="4 / 3" /></div>
+  </Hero>
 
   <TrustBar />
 
@@ -78,13 +76,7 @@ const { s } = Astro.props;
 </Base>
 
 <style>
-  .hero { background: var(--navy); color: #fff; }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding-block: 64px 72px; }
-  .hero h1 { font-size: clamp(30px, 4vw, 46px); font-weight: 800; color: #fff; margin-top: 14px; }
-  .eyebrow.svetly { color: rgba(255, 255, 255, 0.66); }
-  .lede { margin-top: 18px; font-size: 17.5px; color: rgba(255, 255, 255, 0.88); max-width: 46ch; }
-  .akcie { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
-  @media (max-width: 940px) { .hero .wrap { grid-template-columns: 1fr; gap: 30px; padding-block: 44px 52px; } .foto { display: none; } }
+  @media (max-width: 940px) { .foto { display: none; } }
 
   .uzky { max-width: 760px; }
   .blok + .blok { margin-top: 40px; }
