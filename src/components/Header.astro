@@ -1,0 +1,158 @@
+---
+import Logo from './Logo.astro';
+import { firma } from '../data/firma';
+const nav = [
+  { href: '/cistenie-fasady/', text: 'Čistenie fasád' },
+  { href: '/cistenie-striech/', text: 'Čistenie striech' },
+  { href: '/cennik/', text: 'Cenník' },
+  { href: '/poradna/', text: 'Poradňa' },
+  { href: '/kontakt/', text: 'Kontakt' },
+];
+---
+<div class="topbar">
+  <div class="wrap">
+    <span>Čistíme fasády, strechy a dlažby po západnom a strednom Slovensku</span>
+    <span><b>Obhliadka a cenová ponuka zdarma</b></span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label={firma.znacka + ' — domov'}><Logo /></a>
+    <nav class="main" aria-label="Hlavná navigácia">
+      {nav.map((n) => <a href={n.href}>{n.text}</a>)}
+    </nav>
+    <div class="hdr-cta">
+      <a class="hdr-tel" href={firma.telefonHref}>{firma.telefon}</a>
+      <a class="btn btn-invert" href="/kontakt/">Cenová ponuka</a>
+    </div>
+    <button
+      type="button"
+      class="menu-btn"
+      aria-expanded="false"
+      aria-controls="mobilne-menu"
+      aria-label="Menu"
+    >
+      <svg class="ikona-menu" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <path d="M3 6h16M3 11h16M3 16h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <svg class="ikona-kriz" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <path d="M5 5l12 12M17 5L5 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+
+  <nav id="mobilne-menu" aria-label="Mobilná navigácia" hidden>
+    {nav.map((n) => <a class="polozka" href={n.href}>{n.text}</a>)}
+    <a class="mobil-tel" href={firma.telefonHref}>{firma.telefon}</a>
+    <a class="btn btn-invert mobil-ponuka" href="/kontakt/">Cenová ponuka</a>
+  </nav>
+</header>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('.menu-btn');
+    var menu = document.getElementById('mobilne-menu');
+    if (!btn || !menu) return;
+
+    function nastav(otvorene) {
+      btn.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+      menu.hidden = !otvorene;
+      document.body.style.overflow = otvorene ? 'hidden' : '';
+    }
+
+    btn.addEventListener('click', function () {
+      nastav(btn.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) nastav(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        nastav(false);
+        btn.focus();
+      }
+    });
+
+    var mq = window.matchMedia('(min-width: 1041px)');
+    mq.addEventListener('change', function (e) {
+      if (e.matches) nastav(false);
+    });
+  })();
+</script>
+
+<style>
+  .topbar { background: var(--navy-900); color: rgba(255, 255, 255, 0.75); font-size: 12.5px; }
+  .topbar .wrap { display: flex; gap: 16px; justify-content: space-between; padding-block: 8px; flex-wrap: wrap; }
+  .topbar b { color: #fff; font-weight: 600; }
+
+  header.site {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    background: var(--navy); color: #fff;
+  }
+  header.site .wrap { display: flex; align-items: center; gap: 26px; padding-block: 14px; min-height: var(--header-h); }
+  nav.main { display: flex; gap: 22px; margin-left: auto; font-size: 14.5px; font-weight: 500; }
+  nav.main a { text-decoration: none; color: rgba(255, 255, 255, 0.86); padding-block: 6px; border-bottom: 2px solid transparent; }
+  nav.main a:hover { color: #fff; border-bottom-color: rgba(255, 255, 255, 0.6); }
+  nav.main a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .hdr-cta { display: flex; align-items: center; gap: 16px; }
+  .hdr-tel { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: #fff; text-decoration: none; white-space: nowrap; }
+  .hdr-tel:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  .menu-btn {
+    display: none;
+    width: 44px; height: 44px; flex: 0 0 44px;
+    align-items: center; justify-content: center;
+    padding: 0; border: 0; border-radius: 4px;
+    background: transparent; color: #fff; cursor: pointer;
+  }
+  .menu-btn:hover { background: rgba(255, 255, 255, 0.1); }
+  .menu-btn:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .menu-btn .ikona-kriz { display: none; }
+  .menu-btn[aria-expanded="true"] .ikona-menu { display: none; }
+  .menu-btn[aria-expanded="true"] .ikona-kriz { display: block; }
+
+  #mobilne-menu {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--navy-800);
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    padding-bottom: 18px;
+  }
+  #mobilne-menu[hidden] { display: none; }
+  #mobilne-menu .polozka {
+    display: flex; align-items: center;
+    height: 52px; padding-inline: var(--gutter);
+    color: #fff; font-size: 17px; line-height: 52px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  #mobilne-menu .polozka:last-of-type { border-bottom: none; }
+  #mobilne-menu .polozka:focus-visible,
+  #mobilne-menu .mobil-tel:focus-visible {
+    outline: 3px solid #fff; outline-offset: -3px;
+  }
+  .mobil-tel {
+    display: block; margin-top: 8px;
+    padding: 14px var(--gutter) 6px;
+    font-family: var(--font-display); font-weight: 800; font-size: 26px;
+    color: #fff; text-decoration: none; line-height: 1.2;
+  }
+  .mobil-ponuka { width: calc(100% - 2 * var(--gutter)); margin: 14px var(--gutter) 8px; }
+
+  @media (max-width: 1040px) {
+    nav.main { display: none; }
+    .hdr-cta { margin-left: auto; }
+    .menu-btn { display: inline-flex; }
+    header.site .wrap { gap: 12px; }
+  }
+  @media (min-width: 1041px) {
+    #mobilne-menu { display: none !important; }
+  }
+  @media (max-width: 700px) {
+    #mobilne-menu { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+  }
+  @media (max-width: 560px) { .hdr-tel { display: none; } }
+</style>
