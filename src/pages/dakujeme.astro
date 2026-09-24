@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { firma } from '../data/firma';
+---
+<Base
+  title="Ďakujeme za dopyt | Renovácia Povrchov"
+  description="Dopyt sme prijali. Ozveme sa vám s cenovou ponukou."
+>
+  <section class="sec">
+    <div class="wrap uzky">
+      <p class="eyebrow">Dopyt odoslaný</p>
+      <h1>Ďakujeme, ozveme sa vám</h1>
+      <p class="pod">
+        Dopyt máme. Pozrieme sa naň a ozveme sa s cenovým rozpätím a návrhom termínu obhliadky.
+        Ak sa vám ponáhľa, zavolajte rovno na <a href={firma.telefonHref}>{firma.telefon}</a>.
+      </p>
+      <div class="akcie">
+        <a class="btn btn-primary" href="/">Späť na úvod</a>
+        <a class="btn btn-outline" href="/cennik/">Pozrieť cenník</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<!--
+  MERANIE KONVERZIÍ
+  Táto stránka existuje preto, aby sa dala merať konverzia pre Google Ads a GA4.
+  Bez nej sa reklama nedá optimalizovať — nevieš, ktoré kľúčové slovo prinieslo dopyt.
+  Po napojení GA4 a Ads sem príde:
+    gtag('event', 'generate_lead', { currency: 'EUR' });
+    gtag('event', 'conversion', { send_to: 'AW-XXXXXXX/YYYY' });
+-->
+<style>
+  .uzky { max-width: 640px; }
+  h1 { font-size: clamp(28px, 3.6vw, 42px); margin-top: 12px; }
+  .pod { color: var(--muted); margin-top: 16px; font-size: 17px; line-height: 1.7; }
+  .pod a { color: var(--navy); font-weight: 600; }
+  .akcie { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+</style>

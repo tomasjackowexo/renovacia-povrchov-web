@@ -1,0 +1,17 @@
+---
+interface Props { typ: string; velkost?: number }
+const { typ, velkost = 32 } = Astro.props;
+const cesty: Record<string, string> = {
+  strecha: 'M3 15L16 5l13 10M6 14v13h20V14',
+  fasada: 'M5 4h22v24H5zM5 12h22M5 20h22M13 4v24',
+  dlazba: 'M4 8h10v8H4zM18 8h10v8H18zM4 20h10v6H4zM18 20h10v6H18z',
+  hrob: 'M8 28V12a8 8 0 1116 0v16M8 20h16',
+  graffiti: 'M6 24c4-10 10-14 20-16M6 24l6 2M24 4l2 6M4 27h24',
+  stetec: 'M20 4l8 8-14 14H6v-8L20 4zM17 7l8 8',
+  kamen: 'M6 27V13l10-7 10 7v14zM13 27v-8h6v8',
+};
+const d = cesty[typ] ?? cesty.fasada;
+---
+<svg viewBox="0 0 32 32" width={velkost} height={velkost} fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d={d} />
+</svg>

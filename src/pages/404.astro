@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Stránka sa nenašla | Renovácia Povrchov" description="Táto stránka neexistuje.">
+  <section class="sec">
+    <div class="wrap uzky">
+      <p class="eyebrow">Chyba 404</p>
+      <h1>Túto stránku sme nenašli</h1>
+      <p class="pod">Možno sa presunula. Skúste cenník, čistenie fasád alebo nám rovno zavolajte.</p>
+      <div class="akcie">
+        <a class="btn btn-primary" href="/">Na úvod</a>
+        <a class="btn btn-outline" href="/cistenie-fasady/">Čistenie fasád</a>
+        <a class="btn btn-outline" href="/cennik/">Cenník</a>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .uzky { max-width: 640px; }
+  h1 { font-size: clamp(28px, 3.6vw, 42px); margin-top: 12px; }
+  .pod { color: var(--muted); margin-top: 16px; font-size: 17px; }
+  .akcie { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+</style>

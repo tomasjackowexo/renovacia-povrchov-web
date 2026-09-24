@@ -1,0 +1,5 @@
+---
+interface Props { vyska?: number; class?: string }
+const { vyska = 34, class: klass = '' } = Astro.props;
+---
+<img src="/img/logo.svg" alt="Renovácia Povrchov" height={vyska} class={klass} style={`height:${vyska}px;width:auto`} />

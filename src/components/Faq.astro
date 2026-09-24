@@ -1,0 +1,30 @@
+---
+interface Props { polozky: { otazka: string; odpoved: string }[] }
+const { polozky } = Astro.props;
+---
+{polozky.length > 0 && (
+  <div class="faq">
+    {polozky.map((f) => (
+      <details>
+        <summary>{f.otazka}</summary>
+        <p>{f.odpoved}</p>
+      </details>
+    ))}
+  </div>
+)}
+<style>
+  .faq { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); overflow: hidden; }
+  details { border-bottom: 1px solid var(--line); }
+  details:last-child { border-bottom: none; }
+  summary {
+    cursor: pointer; padding: 18px 22px; font-family: var(--font-display);
+    font-weight: 700; font-size: 16px; list-style: none; display: flex;
+    justify-content: space-between; gap: 16px; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font-size: 22px; color: var(--navy-600); font-weight: 400; flex: none; }
+  details[open] summary::after { content: '−'; }
+  summary:hover { background: var(--paper); }
+  summary:focus-visible { outline: 3px solid var(--navy-600); outline-offset: -3px; }
+  details p { padding: 0 22px 20px; color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 72ch; }
+</style>

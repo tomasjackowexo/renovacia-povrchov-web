@@ -1,0 +1,62 @@
+---
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+import { firma } from '../data/firma';
+import { vetaOPosobnosti } from '../data/posobnost';
+import { sluzby } from '../data/sluzby';
+
+const cistenie = sluzby.filter((s) => s.skupina === 'cistenie');
+const ostatne = sluzby.filter((s) => s.skupina !== 'cistenie');
+---
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <Logo vyska={30} />
+      <p class="popis">Čistenie, impregnácia a renovácia fasád, striech a dlažieb.</p>
+      <p class="popis">{vetaOPosobnosti}</p>
+      <SocialLinks />
+    </div>
+    <div>
+      <h4>Čistiace služby</h4>
+      <ul>{cistenie.map((s) => <li><a href={`/${s.slug}/`}>{s.nazovKratky}</a></li>)}</ul>
+    </div>
+    <div>
+      <h4>Ďalšie služby</h4>
+      <ul>{ostatne.map((s) => <li><a href={`/${s.slug}/`}>{s.nazovKratky}</a></li>)}</ul>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href={firma.telefonHref}>{firma.telefon}</a></li>
+        <li><a href={`mailto:${firma.email}`}>{firma.email}</a></li>
+        <li>{firma.pravnySubjekt}</li>
+        <li>{firma.ulica}, {firma.psc} {firma.mesto}</li>
+        <li>IČO {firma.ico} · DIČ {firma.dic}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <div class="wrap">
+      <span>© {new Date().getFullYear()} {firma.znacka}</span>
+      <span><a href="/ochrana-osobnych-udajov/">Ochrana osobných údajov</a></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer.site { background: var(--navy-900); color: rgba(255, 255, 255, 0.7); font-size: 14px; }
+  footer.site .wrap { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 36px; padding-block: 58px; }
+  footer.site h4 {
+    font-family: var(--font-display); font-size: 11.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #fff; margin-bottom: 16px; font-weight: 700;
+  }
+  footer.site ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  footer.site a { text-decoration: none; color: rgba(255, 255, 255, 0.7); }
+  footer.site a:hover { color: #fff; }
+  .popis { font-size: 13.5px; line-height: 1.65; margin-top: 14px; max-width: 42ch; }
+  .popis + :global(.soc) { margin-top: 20px; }
+  .legal { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  .legal .wrap { display: flex; justify-content: space-between; gap: 16px; padding-block: 20px; font-size: 13px; flex-wrap: wrap; }
+  @media (max-width: 900px) { footer.site .wrap { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { footer.site .wrap { grid-template-columns: 1fr; } }
+</style>

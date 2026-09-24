@@ -1,0 +1,20 @@
+---
+import Ikona from './Ikona.astro';
+import type { Sluzba } from '../data/sluzby';
+interface Props { sluzba: Sluzba }
+const { sluzba } = Astro.props;
+---
+<a class="svc" href={`/${sluzba.slug}/`}>
+  <span class="ico"><Ikona typ={sluzba.ikona} /></span>
+  <h3>{sluzba.nazov}</h3>
+  <p>{sluzba.perex}</p>
+  <span class="from">{sluzba.cenaOd ?? 'Cena po obhliadke'}</span>
+</a>
+<style>
+  .svc { background: var(--surface); padding: 30px 28px; display: flex; flex-direction: column; gap: 13px; text-decoration: none; transition: background 0.16s; }
+  .svc:hover { background: var(--sand); }
+  .ico { color: var(--navy); }
+  .svc h3 { font-size: 18px; }
+  .svc p { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+  .from { margin-top: auto; padding-top: 14px; font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--navy); }
+</style>

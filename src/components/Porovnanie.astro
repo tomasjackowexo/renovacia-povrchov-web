@@ -1,0 +1,26 @@
+---
+import { porovnanie } from '../data/porovnanie';
+---
+<div class="tabulka-wrap">
+  <table class="tabulka">
+    <thead>
+      <tr>{porovnanie.hlavicka.map((h, i) => <th scope="col" class={i === 1 ? 'zvyraznene' : ''}>{h}</th>)}</tr>
+    </thead>
+    <tbody>
+      {porovnanie.riadky.map((r) => (
+        <tr>
+          <th scope="row">{r[0]}</th>
+          <td class="zvyraznene">{r[1]}</td>
+          <td>{r[2]}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="zaver">{porovnanie.zaver}</p>
+<style>
+  table.tabulka th[scope='row'] { font-weight: 600; color: var(--text); width: 26%; }
+  .zvyraznene { background: var(--sand); }
+  thead .zvyraznene { background: var(--sand-dk); color: var(--navy); }
+  .zaver { margin-top: 18px; font-size: 15px; color: var(--muted); max-width: 72ch; line-height: 1.65; }
+</style>

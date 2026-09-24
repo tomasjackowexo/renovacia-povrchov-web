@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import TrustBar from '../components/TrustBar.astro';
+import PriceCalculator from '../components/PriceCalculator.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Porovnanie from '../components/Porovnanie.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import Placeholder from '../components/Placeholder.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { sluzbyVNavigacii } from '../data/sluzby';
+import { faq } from '../data/faq';
+import { realizacie } from '../data/realizacie';
+import { firma } from '../data/firma';
+---
+<Base
+  title="Čistenie fasád, striech a dlažieb | Renovácia Povrchov"
+  description="Vyčistíme fasádu bez maľovania — úspora približne 70 % oproti novému náteru. Skúšobná vzorka na mieste, impregnácia so zárukou 5 rokov. Hodnotenie 5,0 zo 119 recenzií."
+  faq={faq}
+>
+  <!-- HERO — jediný tmavý blok v hornej časti -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow svetly">Čistenie a ochrana povrchov</p>
+        <h1>Fasáda ako nová.<br />Bez maľovania, bez lešenia.</h1>
+        <p class="lede">
+          Odstránime riasy, mach a tmavé škvrny nízkotlakovým oplachom horúcou vodou.
+          Ak je omietka v poriadku, vyjde to približne o 70 % lacnejšie než nový náter.
+        </p>
+        <ul class="usp">
+          <li>Skúšobná vzorka na mieste — výsledok vidíte pred objednávkou</li>
+          <li>Impregnácia so zárukou 5 rokov, za príplatok až 10</li>
+          <li>Platíte až po dokončení, žiadna záloha vopred</li>
+        </ul>
+        <div class="akcie">
+          <a class="btn btn-invert btn-lg" href="/kontakt/">Chcem cenovú ponuku</a>
+          <a class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+        </div>
+      </div>
+      <PriceCalculator />
+    </div>
+  </section>
+
+  <TrustBar />
+
+  <section class="sec" id="sluzby">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Služby</p>
+        <h2>Čistenie, ochrana a renovácia povrchov</h2>
+        <p>Jedna firma na celý objekt — od strechy cez fasádu až po dlažbu okolo domu.</p>
+      </div>
+      <div class="mriezka">
+        {sluzbyVNavigacii.map((s) => <ServiceCard sluzba={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--sand" id="porovnanie">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Rozhodovanie</p>
+        <h2>Dá sa fasáda vyčistiť, alebo ju treba premaľovať?</h2>
+        <p>Najčastejšia otázka, ktorú dostávame po telefóne. Tu je odpoveď bez omáčky.</p>
+      </div>
+      <Porovnanie />
+    </div>
+  </section>
+
+  {realizacie.length > 0 ? (
+    <section class="sec sec--surface" id="realizacie">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Realizácie</p><h2>Pred a po</h2></div>
+        <div class="mriezka2">
+          {realizacie.map((r) => (
+            <figure class="real">
+              <img src={r.fotoPo ?? ''} alt={r.nazov} loading="lazy" />
+              <figcaption>
+                <h3>{r.nazov}</h3>
+                <p>{[r.mesto, r.plochaM2 ? r.plochaM2 + ' m²' : null, r.dni ? r.dni + ' deň' : null].filter(Boolean).join(' · ')}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="sec sec--surface" id="realizacie">
+      <div class="wrap">
+        <div class="sec-head"><p class="eyebrow">Realizácie</p><h2>Pred a po</h2>
+          <p>Toto je celý argument. Doplníme sem fotky z reálnych zákaziek s plochou, počtom dní a mestom.</p>
+        </div>
+        <div class="mriezka2">
+          <Placeholder popis="pred/po celej fasády" pomer="4 / 3" />
+          <Placeholder popis="pred/po štítu alebo detailu" pomer="4 / 3" />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Ako to prebieha</p><h2>Od telefonátu po hotovú fasádu</h2></div>
+      <Steps />
+    </div>
+  </section>
+
+  <section class="sec sec--surface" id="otazky">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Časté otázky</p>
+        <h2>Čo sa ľudia pýtajú pred objednaním</h2>
+      </div>
+      <Faq polozky={faq} />
+    </div>
+  </section>
+
+  <section class="sec" id="kontakt">
+    <div class="wrap dva">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h2 style="margin-top:12px">Obhliadka a cenová ponuka zdarma</h2>
+        <p class="pod">Napíšte nám typ objektu a približnú plochu. Pri fasáde vieme cenu spočítať aj bez obhliadky.</p>
+        <a class="tel" href={firma.telefonHref}>{firma.telefon}</a>
+        <p class="drobne">{firma.email}</p>
+      </div>
+      <LeadForm />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: var(--navy); color: #fff; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; padding-block: 84px 92px; }
+  .hero h1 { font-size: clamp(32px, 4.6vw, 54px); font-weight: 800; color: #fff; margin-top: 16px; }
+  .eyebrow.svetly { color: rgba(255, 255, 255, 0.66); }
+  .lede { margin-top: 20px; font-size: 18px; color: rgba(255, 255, 255, 0.88); max-width: 46ch; }
+  .usp { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 12px; }
+  .usp li { padding-left: 28px; position: relative; font-size: 15.5px; color: #fff; }
+  .usp li::before {
+    content: ''; position: absolute; left: 0; top: 8px; width: 14px; height: 8px;
+    border-left: 2.4px solid #fff; border-bottom: 2.4px solid #fff; transform: rotate(-45deg);
+  }
+  .akcie { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+  @media (max-width: 940px) { .hero .wrap { grid-template-columns: 1fr; gap: 34px; padding-block: 52px 60px; } }
+
+  .mriezka { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  @media (max-width: 880px) { .mriezka { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .mriezka { grid-template-columns: 1fr; } }
+
+  .mriezka2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  @media (max-width: 780px) { .mriezka2 { grid-template-columns: 1fr; } }
+  .real { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .real figcaption { padding: 18px 22px 22px; }
+  .real h3 { font-size: 16.5px; }
+  .real p { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+
+  .dva { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .dva { grid-template-columns: 1fr; gap: 36px; } }
+  .pod { color: var(--muted); margin-top: 14px; max-width: 42ch; }
+  .tel { display: inline-block; margin-top: 26px; font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--navy); text-decoration: none; }
+  .drobne { font-size: 14px; color: var(--muted); margin-top: 8px; }
+</style>

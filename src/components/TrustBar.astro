@@ -1,0 +1,35 @@
+---
+import { firma } from '../data/firma';
+import { mesta } from '../data/posobnost';
+const g = firma.google;
+---
+<div class="trust">
+  <div class="wrap">
+    <div>
+      <h4>Hodnotenie na Google</h4>
+      <p><span class="stars" aria-hidden="true">★★★★★</span> <b>{g.hodnotenie.toFixed(1).replace('.', ',')}</b> z <b>{g.pocetRecenzii}</b> hodnotení</p>
+    </div>
+    <div>
+      <h4>Referencie</h4>
+      <p>{firma.referencie.join(' · ')}</p>
+    </div>
+    <div>
+      <h4>Pôsobnosť</h4>
+      <p><b>{mesta.length} miest</b> na západnom a strednom Slovensku</p>
+    </div>
+    <div>
+      <h4>Záruka</h4>
+      <p>Impregnácia <b>5 rokov</b>, za príplatok 10</p>
+    </div>
+  </div>
+</div>
+<style>
+  .trust { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .trust .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding-block: 26px; }
+  .trust h4 { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .trust p { font-size: 14.5px; line-height: 1.5; }
+  .trust b { font-family: var(--font-display); }
+  .stars { color: var(--navy); letter-spacing: 1px; }
+  @media (max-width: 880px) { .trust .wrap { grid-template-columns: 1fr 1fr; gap: 20px; } }
+  @media (max-width: 460px) { .trust .wrap { grid-template-columns: 1fr; } }
+</style>

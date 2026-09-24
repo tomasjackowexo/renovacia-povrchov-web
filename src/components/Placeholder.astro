@@ -1,0 +1,17 @@
+---
+/* Zástupné miesto pre fotku, kým ju Andrej nedodá.
+   Vyzerá ako zámer, nie ako rozbitý obrázok. */
+interface Props { popis: string; pomer?: string }
+const { popis, pomer = '16 / 9' } = Astro.props;
+---
+<div class="ph" style={`aspect-ratio:${pomer}`}>
+  <span>Sem príde fotka: {popis}</span>
+</div>
+<style>
+  .ph {
+    display: grid; place-items: center; width: 100%; max-width: 100%;
+    background: var(--sand); border: 1px dashed var(--sand-dk);
+    border-radius: 6px; color: var(--muted); font-size: 14px;
+    text-align: center; padding: 20px;
+  }
+</style>

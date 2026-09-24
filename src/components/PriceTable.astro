@@ -1,0 +1,18 @@
+---
+import { cennik } from '../data/cennik';
+---
+<div class="tabulka-wrap">
+  <table class="tabulka">
+    <thead><tr><th scope="col">Služba</th><th scope="col">Rozsah</th><th scope="col">Cena</th><th scope="col">Záruka</th></tr></thead>
+    <tbody>
+      {cennik.map((p) => (
+        <tr>
+          <td>{p.sluzba}</td>
+          <td>{p.rozsah}</td>
+          <td class="num">{p.cena ?? <span class="chip">doplniť</span>}</td>
+          <td>{p.zaruka}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

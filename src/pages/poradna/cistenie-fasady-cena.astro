@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import LeadForm from '../../components/LeadForm.astro';
+---
+<Base
+  title="Koľko stojí čistenie fasády? Cena a faktory | Renovácia Povrchov"
+  description="Čistenie fasády stojí od 2,50 €/m², impregnácia od 1,00 €/m². Vysvetľujeme, od čoho cena závisí, ako sa počíta plocha a kedy sa oplatí viac než nový náter."
+  drobcekyNazov="Koľko stojí čistenie fasády"
+>
+  <section class="sec">
+    <div class="wrap uzky">
+      <p class="eyebrow">Poradňa</p>
+      <h1>Koľko stojí čistenie fasády?</h1>
+      <p class="perex">Krátka odpoveď: od 2,50 €/m² pri prízemnom dome. Dlhšia odpoveď je nižšie — od čoho sa cena odvíja a ako si ju viete odhadnúť sami.</p>
+
+      <h2>Cena sa počíta za štvorcový meter</h2>
+      <p>Nie za dom, nie za hodinu. Cena za m² čistenej plochy je najférovejší spôsob, lebo zákazník vidí, za čo platí, a dá sa porovnať s konkurenciou.</p>
+
+      <h2>Čo cenu ovplyvňuje</h2>
+      <ul>
+        <li><strong>Výška budovy.</strong> Prízemný dom sa čistí z rebríka alebo nízkej plošiny, pri viacpodlažnej budove treba plošinu alebo lano.</li>
+        <li><strong>Miera znečistenia.</strong> Ľahký prach ide dole rýchlo, roky zarastené riasy a plesne potrebujú viac chémie a času.</li>
+        <li><strong>Typ omietky.</strong> Hladká fasáda sa čistí rýchlejšie než hrubá štruktúrovaná, kde sa špina drží v ryhách.</li>
+        <li><strong>Prístup k objektu.</strong> Ak sa k stene nedá dostať technikou, práca trvá dlhšie.</li>
+        <li><strong>Vzdialenosť.</strong> K cene sa pripočíta doprava podľa vzdialenosti od Nitrianskych Hrnčiaroviec.</li>
+      </ul>
+
+      <h2>Ako si odhadnúť plochu</h2>
+      <p>Obvod domu vynásobte výškou stien a odpočítajte okná a dvere. Bežný prízemný rodinný dom máva okolo 120 m², poschodový okolo 180 m². Ak si nie ste istí, pošlite nám fotky a približné rozmery — cenové rozpätie pošleme aj bez obhliadky.</p>
+
+      <h2>Aktuálny cenník</h2>
+    </div>
+    <div class="wrap" style="margin-top:24px"><PriceTable /></div>
+
+    <div class="wrap uzky" style="margin-top:44px">
+      <h2>Oplatí sa to viac než nový náter?</h2>
+      <p>Ak je omietka celistvá a problémom je len špina, riasy a plesne, tak áno — čistenie vyjde približne o 70 % lacnejšie. Ak omietka praská alebo farba odchádza, čistenie problém nerieši a treba maľovať. Robíme oboje, takže vám povieme rovno, čo má vo vašom prípade zmysel.</p>
+    </div>
+  </section>
+
+  <section class="sec sec--surface">
+    <div class="wrap uzky-form"><LeadForm nadpis="Zistite cenu za vašu fasádu" /></div>
+  </section>
+</Base>
+<style>
+  .uzky { max-width: 720px; }
+  .uzky-form { max-width: 720px; }
+  h1 { font-size: clamp(28px, 3.6vw, 42px); margin-top: 12px; }
+  h2 { font-size: 22px; margin-top: 36px; }
+  .perex { font-size: 18px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+  p { margin-top: 12px; line-height: 1.75; }
+  ul { margin-top: 12px; padding-left: 20px; line-height: 1.8; }
+  li { margin-top: 8px; }
+</style>

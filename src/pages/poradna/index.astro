@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+const clanky = [
+  { slug: 'cistenie-fasady-cena', nadpis: 'Koľko stojí čistenie fasády? Cena, faktory a najčastejšie otázky',
+    perex: 'Od čoho závisí cena, ako sa počíta plocha a kedy sa čistenie oplatí viac než nový náter.' },
+];
+---
+<Base
+  title="Poradňa — čistenie fasád a striech | Renovácia Povrchov"
+  description="Praktické články o čistení fasád, striech a dlažby. Ceny, postupy a odpovede na otázky, ktoré dostávame najčastejšie."
+  drobcekyNazov="Poradňa"
+>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Poradňa</p>
+        <h1 style="font-size:clamp(28px,3.6vw,42px)">Články a odpovede</h1>
+        <p>Čo sa oplatí vedieť predtým, než si objednáte čistenie.</p>
+      </div>
+      <ul class="zoznam">
+        {clanky.map((c) => (
+          <li>
+            <a href={`/poradna/${c.slug}/`}>
+              <h2>{c.nadpis}</h2>
+              <p>{c.perex}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <!-- TODO: z pôvodného webu premigrovať ešte dva články:
+           "Ako si svojpomocne doma vyčistiť fasádu"
+           "Čistenie strechy: Prečo je to dôležité a aké riešenia používame" -->
+    </div>
+  </section>
+</Base>
+<style>
+  .zoznam { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .zoznam a { display: block; background: var(--surface); padding: 26px 28px; text-decoration: none; transition: background 0.16s; }
+  .zoznam a:hover { background: var(--sand); }
+  .zoznam h2 { font-size: 19px; }
+  .zoznam p { font-size: 14.5px; color: var(--muted); margin-top: 8px; }
+</style>

@@ -1,0 +1,26 @@
+---
+const kroky = [
+  { n: 'Krok 1', h: 'Dopyt', p: 'Zavoláte alebo vyplníte formulár. Stačí typ objektu, približná plocha a fotka.' },
+  { n: 'Krok 2', h: 'Obhliadka a vzorka', p: 'Prídeme, vyčistíme skúšobný štvorec a ukážeme výsledok. Až potom padne cena.' },
+  { n: 'Krok 3', h: 'Realizácia', p: 'Nízkotlakový oplach horúcou vodou, bez lešenia. Bežný rodinný dom zvládneme za deň.' },
+  { n: 'Krok 4', h: 'Impregnácia a platba', p: 'Nanesieme ochranu so zárukou a až vtedy platíte dohodnutú sumu.' },
+];
+---
+<div class="steps">
+  {kroky.map((k) => (
+    <div class="step">
+      <div class="n">{k.n}</div>
+      <h3>{k.h}</h3>
+      <p>{k.p}</p>
+    </div>
+  ))}
+</div>
+<style>
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .step { display: flex; flex-direction: column; gap: 9px; padding-top: 20px; border-top: 2px solid var(--navy); }
+  .n { font-family: var(--font-display); font-weight: 800; font-size: 11.5px; color: var(--navy-600); letter-spacing: 0.14em; text-transform: uppercase; }
+  .step h3 { font-size: 16.5px; }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+</style>

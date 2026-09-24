@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { firma } from '../data/firma';
+import { vetaOPosobnosti } from '../data/posobnost';
+---
+<Base
+  title="Kontakt | Renovácia Povrchov"
+  description="Zavolajte na 0919 142 221 alebo pošlite dopyt. Obhliadka a cenová ponuka zdarma. Sídlime v Nitrianskych Hrnčiarovciach, pracujeme po západnom a strednom Slovensku."
+  drobcekyNazov="Kontakt"
+>
+  <section class="sec">
+    <div class="wrap dva">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h1>Napíšte nám</h1>
+        <p class="pod">Stačí typ objektu a približná plocha. Pri fasáde vieme cenu spočítať aj bez obhliadky — pomôžu fotky.</p>
+
+        <ul class="zoznam">
+          <li><span class="k">Telefón</span><span class="v"><a href={firma.telefonHref}>{firma.telefon}</a></span></li>
+          <li><span class="k">E-mail</span><span class="v"><a href={`mailto:${firma.email}`}>{firma.email}</a></span></li>
+          <li><span class="k">Otváracie hodiny</span><span class="v">{firma.otvaracieHodiny ?? <span class="chip">doplniť</span>}</span></li>
+          <li><span class="k">Fakturačné údaje</span><span class="v">{firma.pravnySubjekt}<br />{firma.ulica}, {firma.psc} {firma.mesto}<br />IČO {firma.ico} · DIČ {firma.dic}</span></li>
+          <li><span class="k">Pôsobnosť</span><span class="v">{vetaOPosobnosti}</span></li>
+        </ul>
+
+        <div class="soc-wrap"><SocialLinks /></div>
+      </div>
+      <LeadForm />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dva { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
+  @media (max-width: 860px) { .dva { grid-template-columns: 1fr; gap: 36px; } }
+  h1 { font-size: clamp(28px, 3.4vw, 40px); margin-top: 12px; }
+  .pod { color: var(--muted); margin-top: 14px; max-width: 46ch; }
+  .zoznam { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 18px; }
+  .zoznam li { display: grid; gap: 4px; }
+  .k { font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .v { font-size: 15.5px; line-height: 1.6; }
+  .v a { color: var(--navy); font-weight: 600; text-decoration: none; }
+  .soc-wrap { margin-top: 28px; background: var(--navy); border-radius: 6px; padding: 16px; display: inline-flex; }
+</style>

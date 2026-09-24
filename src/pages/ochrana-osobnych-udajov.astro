@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import { firma } from '../data/firma';
+---
+<Base
+  title="Ochrana osobných údajov | Renovácia Povrchov"
+  description="Ako spracúvame osobné údaje z kontaktného formulára."
+  drobcekyNazov="Ochrana osobných údajov"
+>
+  <section class="sec">
+    <div class="wrap uzky">
+      <h1>Ochrana osobných údajov</h1>
+      <p class="upozornenie">
+        <strong>Návrh textu — treba dať skontrolovať.</strong> Znenie prevezmite z pôvodného webu
+        alebo nechajte posúdiť právnikovi. Toto je len kostra, aby stránka nebola prázdna.
+      </p>
+
+      <h2>Prevádzkovateľ</h2>
+      <p>{firma.pravnySubjekt}, {firma.ulica}, {firma.psc} {firma.mesto}, IČO {firma.ico}, DIČ {firma.dic}. Kontakt: {firma.email}, {firma.telefon}.</p>
+
+      <h2>Aké údaje spracúvame</h2>
+      <p>Z kontaktného formulára: meno, telefónne číslo, e-mailovú adresu, mesto realizácie, typ služby, približnú plochu, priložené fotky objektu a text poznámky.</p>
+
+      <h2>Na aký účel</h2>
+      <p>Výlučne na vybavenie vášho dopytu — prípravu cenovej ponuky, dohodnutie obhliadky a realizáciu objednanej služby.</p>
+
+      <h2>Ako dlho</h2>
+      <p>Údaje z nevybavených dopytov uchovávame najviac 12 mesiacov. Pri uzavretej zákazke po dobu vyplývajúcu z účtovných predpisov.</p>
+
+      <h2>Vaše práva</h2>
+      <p>Máte právo na prístup k údajom, ich opravu, vymazanie, obmedzenie spracúvania a právo namietať. Stačí napísať na {firma.email}.</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .uzky { max-width: 720px; }
+  h1 { font-size: clamp(28px, 3.6vw, 40px); }
+  h2 { font-size: 20px; margin-top: 32px; }
+  p { margin-top: 12px; color: var(--muted); line-height: 1.7; }
+  .upozornenie { background: var(--sand); border-left: 3px solid var(--navy); padding: 16px 18px; color: var(--text); }
+</style>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import PriceTable from '../components/PriceTable.astro';
+import PriceCalculator from '../components/PriceCalculator.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { modelovePriklady, doprava, minimalnaObjednavka } from '../data/cennik';
+---
+<Base
+  title="Cenník čistenia fasád, striech a dlažby | Renovácia Povrchov"
+  description="Transparentný cenník: čistenie fasády od 2,50 €/m², impregnácia od 1,00 €/m², maľovanie od 6,00 €/m². Ceny počas realizácie nedvíhame."
+  drobcekyNazov="Cenník"
+>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Cenník</p>
+        <h1 style="font-size:clamp(30px,4vw,44px)">Ceny zverejňujeme. Bez skrytých položiek.</h1>
+        <p>Cena sa počíta za štvorcový meter čistenej plochy. Čo dohodneme pri obhliadke, to platí — počas realizácie ceny nedvíhame.</p>
+      </div>
+      <PriceTable />
+      <p class="pozn">
+        Doprava: {doprava ?? 'podľa vzdialenosti od Nitrianskych Hrnčiaroviec'} · Minimálna objednávka: {minimalnaObjednavka ?? 'na dohodu'}
+      </p>
+    </div>
+  </section>
+
+  <section class="sec sec--sand">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Modelový prepočet</p>
+        <h2>Neviete, koľko má vaša fasáda m²?</h2>
+        <p>Väčšina ľudí to nevie. Tu sú orientačné ceny pre bežné domy.</p>
+      </div>
+      <div class="model">
+        {modelovePriklady.map((m) => (
+          <div class="karta">
+            <h3>{m.popis}</h3>
+            <p class="plocha">približne {m.plocha} m²</p>
+            <p class="cena">{m.cena}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap dva">
+      <PriceCalculator />
+      <LeadForm nadpis="Presná cenová ponuka" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pozn { margin-top: 18px; font-size: 14px; color: var(--muted); }
+  .model { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 780px) { .model { grid-template-columns: 1fr; } }
+  .karta { background: var(--surface); border: 1px solid var(--sand-dk); border-radius: 6px; padding: 26px; }
+  .karta h3 { font-size: 16.5px; }
+  .plocha { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+  .cena { font-family: var(--font-display); font-weight: 800; font-size: 26px; color: var(--navy); margin-top: 14px; font-variant-numeric: tabular-nums; }
+  .dva { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: start; }
+  @media (max-width: 900px) { .dva { grid-template-columns: 1fr; gap: 30px; } }
+</style>

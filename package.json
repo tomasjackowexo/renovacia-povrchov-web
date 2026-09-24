@@ -1,0 +1,22 @@
+{
+  "name": "renovaciapovrchov",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "seo": "node scripts/check-meta.mjs && node scripts/check-redirects.mjs",
+    "contrast": "node scripts/check-contrast.mjs",
+    "overit": "npm run build && npm run seo && npm run contrast"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource-variable/montserrat": "^5.1.0",
+    "astro": "^5.1.1",
+    "sharp": "^0.33.5"
+  }
+}

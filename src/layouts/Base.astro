@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { firma } from '../data/firma';
+
+interface Props {
+  title: string;
+  description: string;
+  sluzba?: { nazov: string; cenaOd?: string | null } | null;
+  faq?: { otazka: string; odpoved: string }[] | null;
+  drobcekyNazov?: string | null;
+}
+const { title, description, sluzba = null, faq = null, drobcekyNazov = null } = Astro.props;
+---
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Seo {title} {description} {sluzba} {faq} {drobcekyNazov} />
+  </head>
+  <body>
+    <a class="preskoc" href="#obsah">Preskočiť na obsah</a>
+    <Header />
+    <main id="obsah"><slot /></main>
+    <Footer />
+
+    <div class="mobile-cta">
+      <a class="btn btn-outline" href={firma.telefonHref}>Zavolať</a>
+      <a class="btn btn-primary" href="/kontakt/">Cenová ponuka</a>
+    </div>
+
+    <style>
+      .preskoc {
+        position: absolute; left: -9999px; top: 0; z-index: 100;
+        background: #fff; color: var(--navy); padding: 12px 18px; font-weight: 700;
+      }
+      .preskoc:focus { left: 8px; top: 8px; }
+      .mobile-cta { display: none; }
+      @media (max-width: 700px) {
+        .mobile-cta {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 9px;
+          position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+          background: var(--surface); border-top: 1px solid var(--line);
+          padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+        }
+        body { padding-bottom: 80px; }
+      }
+    </style>
+  </body>
+</html>

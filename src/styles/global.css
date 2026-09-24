@@ -1,0 +1,109 @@
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/inter';
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+/* Lepkavá hlavička nesmie prekryť nadpis pri skoku na kotvu */
+[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+  text-wrap: balance;
+  margin: 0;
+  color: var(--text); /* NIKDY --navy: na tmavom pozadí by zanikol */
+}
+p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+.eyebrow {
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--navy-600);
+}
+.sec { padding-block: 84px; }
+.sec--surface { background: var(--surface); border-block: 1px solid var(--line); }
+.sec--sand { background: var(--sand); }
+.sec-head { display: flex; flex-direction: column; gap: 12px; max-width: 62ch; margin-bottom: 44px; }
+.sec-head h2 { font-size: clamp(27px, 3.6vw, 40px); }
+.sec-head p { color: var(--muted); font-size: 17px; }
+
+/* Tlačidlá — len modrá a biela, žiadna akcentná farba.
+   Na tmavom pozadí NIKDY .btn-primary, splynul by. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  font-family: var(--font-display); font-weight: 700; font-size: 14px;
+  padding: 14px 26px; border-radius: var(--radius); border: 1.5px solid transparent;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.16s, border-color 0.16s, color 0.16s;
+}
+.btn-primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-primary:hover { background: var(--navy-600); border-color: var(--navy-600); }
+.btn-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+.btn-outline:hover { background: var(--navy); color: #fff; }
+.btn-invert { background: #fff; color: var(--navy); border-color: #fff; }
+.btn-invert:hover { background: var(--sand); border-color: var(--sand); }
+.btn-invert-ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+.btn-invert-ghost:hover { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
+.btn-lg { padding: 16px 32px; font-size: 15px; }
+.btn:focus-visible { outline: 3px solid var(--navy-600); outline-offset: 3px; }
+.btn-invert:focus-visible, .btn-invert-ghost:focus-visible { outline-color: #fff; }
+
+.chip {
+  display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 4px 9px; border-radius: 99px;
+  border: 1px dashed var(--muted); color: var(--muted);
+}
+
+/* Polia formulárov */
+.field { display: grid; gap: 7px; }
+.field label { font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea {
+  font: inherit; font-size: 15px; padding: 12px 13px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper); color: var(--text); width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: 2px solid var(--navy-600); border-color: var(--navy-600);
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }
+
+.tabulka-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+table.tabulka { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 15px; }
+table.tabulka th, table.tabulka td { text-align: left; padding: 15px 20px; border-bottom: 1px solid var(--line); }
+table.tabulka tbody tr:last-child td { border-bottom: none; }
+table.tabulka thead th {
+  font-family: var(--font-display); font-size: 11.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); font-weight: 700; background: var(--paper);
+}
+table.tabulka td.num {
+  font-family: var(--font-display); font-weight: 700;
+  font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--navy);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

@@ -1,0 +1,87 @@
+---
+import { sluzby } from '../data/sluzby';
+interface Props { nadpis?: string; id?: string }
+const { nadpis = 'Nezáväzná cenová ponuka', id = 'formular' } = Astro.props;
+---
+<form class="lead" id={id} novalidate>
+  <h3>{nadpis}</h3>
+  <p class="sub">Čím viac vyplníte, tým presnejšiu cenu pošleme. Pri fasáde vieme cenu spočítať aj bez obhliadky.</p>
+
+  <div class="row2">
+    <div class="field"><label for="f-meno">Meno *</label><input id="f-meno" name="meno" type="text" autocomplete="name" required /></div>
+    <div class="field"><label for="f-tel">Telefón *</label><input id="f-tel" name="telefon" type="tel" autocomplete="tel" required /></div>
+  </div>
+  <div class="row2" style="margin-top:13px">
+    <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" /></div>
+    <div class="field"><label for="f-mesto">Mesto *</label><input id="f-mesto" name="mesto" type="text" autocomplete="address-level2" required /></div>
+  </div>
+  <div class="row2" style="margin-top:13px">
+    <div class="field">
+      <label for="f-sluzba">Služba *</label>
+      <select id="f-sluzba" name="sluzba" required>
+        <option value="">Vyberte službu</option>
+        {sluzby.filter((s) => s.vNavigacii).map((s) => <option value={s.nazov}>{s.nazov}</option>)}
+      </select>
+    </div>
+    <div class="field"><label for="f-m2">Plocha v m²</label><input id="f-m2" name="plocha" type="number" inputmode="numeric" min="1" /></div>
+  </div>
+  <div class="field" style="margin-top:13px"><label for="f-foto">Fotky objektu (max. 5)</label><input id="f-foto" name="fotky" type="file" accept="image/*" multiple /></div>
+  <div class="field" style="margin-top:13px"><label for="f-sprava">Poznámka</label><textarea id="f-sprava" name="poznamka" rows="3"></textarea></div>
+
+  <label class="gdpr">
+    <input type="checkbox" id="f-gdpr" name="gdpr" required />
+    <span>Súhlasím so spracovaním údajov podľa <a href="/ochrana-osobnych-udajov/">zásad ochrany osobných údajov</a>. *</span>
+  </label>
+
+  <!-- pasca na roboty -->
+  <div class="hp" aria-hidden="true"><label for="f-web">Webstránka</label><input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off" /></div>
+  <input type="hidden" name="cas" value="" />
+
+  <button class="btn btn-primary btn-lg" type="submit">Odoslať dopyt</button>
+  <p class="stav" id="stav" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .lead { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 30px; box-shadow: var(--shadow); }
+  .lead h3 { font-size: 19px; }
+  .sub { font-size: 13.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; margin-bottom: 18px; }
+  .gdpr { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+  .gdpr input { margin-top: 4px; flex: none; }
+  .gdpr a { color: var(--navy); font-weight: 600; }
+  .lead > .btn { width: 100%; margin-top: 20px; }
+  .hp { position: absolute; left: -9999px; }
+  .stav { font-size: 13.5px; margin-top: 12px; color: var(--muted); }
+</style>
+
+<script>
+  const form = document.currentScript?.previousElementSibling as HTMLFormElement | null;
+  document.querySelectorAll<HTMLFormElement>('form.lead').forEach((f) => {
+    const cas = f.querySelector<HTMLInputElement>('input[name=cas]');
+    if (cas) cas.value = String(Date.now());
+
+    // predvyplnenie plochy z kalkulačky (?plocha=120)
+    const p = new URLSearchParams(location.search).get('plocha');
+    const m2 = f.querySelector<HTMLInputElement>('input[name=plocha]');
+    if (p && m2 && !m2.value) m2.value = p;
+
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const stav = f.querySelector('.stav');
+      if (!f.checkValidity()) { f.reportValidity(); return; }
+      if (f.querySelector<HTMLInputElement>('input[name=web]')?.value) return; // bot
+      const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT;
+      const btn = f.querySelector('button[type=submit]') as HTMLButtonElement;
+      btn.disabled = true;
+      try {
+        if (endpoint) {
+          const res = await fetch(endpoint, { method: 'POST', body: new FormData(f) });
+          if (!res.ok) throw new Error('chyba');
+        }
+        location.href = '/dakujeme/';
+      } catch {
+        btn.disabled = false;
+        if (stav) stav.textContent = 'Dopyt sa nepodarilo odoslať. Zavolajte nám prosím na 0919 142 221.';
+      }
+    });
+  });
+</script>

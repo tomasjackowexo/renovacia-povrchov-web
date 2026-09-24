@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import TrustBar from '../components/TrustBar.astro';
+import PriceTable from '../components/PriceTable.astro';
+import Steps from '../components/Steps.astro';
+import Faq from '../components/Faq.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { sluzby } from '../data/sluzby';
+import { faq } from '../data/faq';
+import { firma } from '../data/firma';
+
+export function getStaticPaths() {
+  return sluzby.map((s) => ({ params: { sluzba: s.slug }, props: { s } }));
+}
+const { s } = Astro.props;
+---
+<Base
+  title={s.metaTitle}
+  description={s.metaDescription}
+  sluzba={{ nazov: s.nazov, cenaOd: s.cenaOd }}
+  faq={s.slug === 'cistenie-fasady' ? faq : null}
+  drobcekyNazov={s.nazov}
+>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow svetly">{s.nazov}</p>
+        <h1>{s.h1}</h1>
+        <p class="lede">{s.perex}</p>
+        <div class="akcie">
+          <a class="btn btn-invert btn-lg" href="#formular">Chcem cenovú ponuku</a>
+          <a class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+        </div>
+      </div>
+      <div class="foto"><Placeholder popis={`${s.nazov.toLowerCase()} — reálna realizácia`} pomer="4 / 3" /></div>
+    </div>
+  </section>
+
+  <TrustBar />
+
+  <section class="sec">
+    <div class="wrap uzky">
+      {s.obsah.map((b) => (
+        <div class="blok">
+          <h2>{b.nadpis}</h2>
+          <p>{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec sec--sand">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Cenník</p><h2>Ceny zverejňujeme</h2></div>
+      <PriceTable />
+      <p class="poznamka"><a href="/cennik/">Celý cenník →</a></p>
+    </div>
+  </section>
+
+  <section class="sec sec--surface">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Ako to prebieha</p><h2>Štyri kroky, žiadne prekvapenia</h2></div>
+      <Steps />
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Časté otázky</p><h2>Čo sa ľudia pýtajú</h2></div>
+      <Faq polozky={faq} />
+    </div>
+  </section>
+
+  <section class="sec sec--surface">
+    <div class="wrap uzky-form"><LeadForm nadpis={`Cenová ponuka — ${s.nazov.toLowerCase()}`} /></div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: var(--navy); color: #fff; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding-block: 64px 72px; }
+  .hero h1 { font-size: clamp(30px, 4vw, 46px); font-weight: 800; color: #fff; margin-top: 14px; }
+  .eyebrow.svetly { color: rgba(255, 255, 255, 0.66); }
+  .lede { margin-top: 18px; font-size: 17.5px; color: rgba(255, 255, 255, 0.88); max-width: 46ch; }
+  .akcie { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  @media (max-width: 940px) { .hero .wrap { grid-template-columns: 1fr; gap: 30px; padding-block: 44px 52px; } .foto { display: none; } }
+
+  .uzky { max-width: 760px; }
+  .blok + .blok { margin-top: 40px; }
+  .blok h2 { font-size: clamp(22px, 2.6vw, 28px); }
+  .blok p { margin-top: 12px; color: var(--muted); font-size: 16.5px; line-height: 1.7; }
+  .poznamka { margin-top: 18px; font-size: 15px; }
+  .poznamka a { color: var(--navy); font-weight: 600; text-decoration: none; }
+  .uzky-form { max-width: 720px; }
+</style>

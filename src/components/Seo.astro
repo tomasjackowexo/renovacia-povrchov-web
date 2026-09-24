@@ -1,0 +1,92 @@
+---
+import { firma } from '../data/firma';
+import { mesta } from '../data/posobnost';
+
+interface Props {
+  title: string;
+  description: string;
+  typ?: 'website' | 'article';
+  sluzba?: { nazov: string; cenaOd?: string | null } | null;
+  faq?: { otazka: string; odpoved: string }[] | null;
+  drobcekyNazov?: string | null;
+}
+const { title, description, typ = 'website', sluzba = null, faq = null, drobcekyNazov = null } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const localBusiness: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': firma.web + '/#firma',
+  name: firma.znacka,
+  legalName: firma.pravnySubjekt,
+  url: firma.web,
+  telephone: '+421919142221',
+  email: firma.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: firma.ulica,
+    postalCode: firma.psc,
+    addressLocality: firma.mesto,
+    addressCountry: firma.krajina,
+  },
+  areaServed: mesta.map((m) => ({ '@type': 'City', name: m })),
+  sameAs: Object.values(firma.socialne).filter(Boolean),
+};
+// Hviezdičky pridávame len s reálnym počtom recenzií z Google profilu.
+if (firma.google?.pocetRecenzii) {
+  localBusiness.aggregateRating = {
+    '@type': 'AggregateRating',
+    ratingValue: firma.google.hodnotenie,
+    reviewCount: firma.google.pocetRecenzii,
+  };
+}
+
+const schemy: Record<string, unknown>[] = [localBusiness];
+
+if (sluzba) {
+  schemy.push({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: sluzba.nazov,
+    provider: { '@id': firma.web + '/#firma' },
+    areaServed: mesta.map((m) => ({ '@type': 'City', name: m })),
+    ...(sluzba.cenaOd ? { offers: { '@type': 'Offer', price: sluzba.cenaOd, priceCurrency: 'EUR' } } : {}),
+  });
+}
+
+if (faq && faq.length) {
+  schemy.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.otazka,
+      acceptedAnswer: { '@type': 'Answer', text: f.odpoved },
+    })),
+  });
+}
+
+if (drobcekyNazov) {
+  schemy.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Domov', item: firma.web + '/' },
+      { '@type': 'ListItem', position: 2, name: drobcekyNazov, item: canonical },
+    ],
+  });
+}
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content={typ} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="sk_SK" />
+<meta property="og:site_name" content={firma.znacka} />
+<meta name="twitter:card" content="summary_large_image" />
+{schemy.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}
