@@ -110,17 +110,40 @@ export const sluzby: Sluzba[] = [
     skupina: 'cistenie',
     vNavigacii: true,
     perex:
-      'Šetrné čistenie náhrobných kameňov, zlátenie písma, betonárske práce. Predávame a osádzame aj nové pomníky.',
+      'Šetrné čistenie náhrobných kameňov, obnova písma a impregnácia. Nemusíte byť pri tom — po dokončení pošleme fotky.',
     cenaOd: null,
     ikona: 'hrob',
     h1: 'Čistenie a renovácia hrobov',
-    metaTitle: 'Čistenie a renovácia hrobov a pomníkov | Renovácia Povrchov',
+    metaTitle: 'Čistenie a renovácia hrobov | Renovácia Povrchov',
     metaDescription:
-      'Šetrné čistenie náhrobných kameňov bez poškodenia povrchu, zlátenie písma a betonárske práce. Predaj a montáž nových pomníkov.',
+      'Vyčistíme náhrobný kameň od machu, lišajníkov a vodného kameňa bez poškodenia povrchu. Obnova a zlátenie písma, impregnácia. Nemusíte byť pri tom — pošleme fotky pred a po.',
     obsah: [
       {
-        nadpis: 'Šetrne ku kameňu',
-        text: 'Žula, mramor aj teraso znesú iný postup. Čistíme tak, aby zostala pôvodná štruktúra a leštenie — nie tlakom nahrubo.',
+        nadpis: 'Čo z hrobu odstránime',
+        text: 'Mach, lišajníky, riasy a vodný kameň, tmavé škvrny od listov a ihličia, zvyšky vosku a usadeniny okolo písma.',
+      },
+      {
+        nadpis: 'Každý kameň znesie niečo iné',
+        // TODO overiť u klienta, ktoré materiály reálne čistia
+        text: 'Žula, mramor, teraso a betón sa čistia odlišne. Mramor je mäkší a citlivejší na chémiu než žula. Postup volíme podľa materiálu, nie podľa toho, čo ide najrýchlejšie.',
+      },
+      {
+        nadpis: 'Obnova a zlátenie písma',
+        text: 'Vyblednuté alebo odlúpnuté písmo vieme obnoviť vrátane zlátenia. Často z neho spraví čitateľný nápis bez toho, aby sa menil kameň.',
+      },
+      {
+        nadpis: 'Impregnácia — hrob zostane čistý dlhšie',
+        // TODO potvrdiť, akú záruku na impregnáciu hrobov reálne dávate
+        text: 'Po vyčistení nanášame ochranu. Zákazníčka Renata K. to na Google opísala presne: hrob jej vydržal čistý dva roky.',
+      },
+      {
+        nadpis: 'Nemusíte byť pri tom',
+        // TODO potvrdiť, či túto službu reálne poskytujete — ak áno, je to silný argument, ktorý konkurencia nekomunikuje
+        text: 'Veľa ľudí má hrob v obci, kam sa nedostane, alebo žije v zahraničí. Stačí nám povedať cintorín, sektor a meno na pomníku. Po dokončení pošleme fotky pred a po.',
+      },
+      {
+        nadpis: 'Kedy si termín objednať',
+        text: 'Pred Dušičkami sú termíny plné už od polovice októbra. Jarné čistenie po zime býva voľnejšie a hrob je po zime často znečistený viac.',
       },
     ],
   },

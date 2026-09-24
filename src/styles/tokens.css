@@ -9,6 +9,9 @@
 
   --sand:     #f3e6d2;
   --sand-dk:  #e3d0b3;
+  --cream:    #f7efe2;   /* teplý podklad pre hero */
+  --akcent:   #b45520;   /* pálená terakota — CTA tlačidlá */
+  --akcent-hover: #9e4a1b;
 
   --paper:    #faf8f5;
   --surface:  #ffffff;

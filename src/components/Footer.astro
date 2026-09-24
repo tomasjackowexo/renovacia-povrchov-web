@@ -2,7 +2,6 @@
 import Logo from './Logo.astro';
 import SocialLinks from './SocialLinks.astro';
 import { firma } from '../data/firma';
-import { vetaOPosobnosti } from '../data/posobnost';
 import { sluzby } from '../data/sluzby';
 
 const cistenie = sluzby.filter((s) => s.skupina === 'cistenie');
@@ -12,8 +11,7 @@ const ostatne = sluzby.filter((s) => s.skupina !== 'cistenie');
   <div class="wrap">
     <div>
       <Logo vyska={30} />
-      <p class="popis">Čistenie, impregnácia a renovácia fasád, striech a dlažieb.</p>
-      <p class="popis">{vetaOPosobnosti}</p>
+      <p class="popis">Čistenie, impregnácia a renovácia fasád, striech a dlažieb. Pôsobíme na západnom a strednom Slovensku.</p>
       <SocialLinks />
     </div>
     <div>

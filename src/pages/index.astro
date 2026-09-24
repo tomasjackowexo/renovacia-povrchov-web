@@ -7,17 +7,28 @@ import ServiceCard from '../components/ServiceCard.astro';
 import Porovnanie from '../components/Porovnanie.astro';
 import Steps from '../components/Steps.astro';
 import Faq from '../components/Faq.astro';
-import Placeholder from '../components/Placeholder.astro';
+import Reviews from '../components/Reviews.astro';
 import LeadForm from '../components/LeadForm.astro';
+import { Image } from 'astro:assets';
 import { sluzbyVNavigacii } from '../data/sluzby';
-import { faq } from '../data/faq';
-import { realizacie } from '../data/realizacie';
+import { faqFasady } from '../data/faq';
+import { recenzie } from '../data/recenzie';
 import { firma } from '../data/firma';
+import { ctaPas, hero, realizacieUvod } from '../data/fotky';
+import { obrazok } from '../data/obrazky';
+
+const uvodne = realizacieUvod.map((f) => ({
+  ...f,
+  src: obrazok(f.src),
+  widths: [960, 1440].filter((w) => w <= f.sirka),
+}));
+const ctaObrazok = obrazok(ctaPas.src);
+const ctaSirky = [720, 1200].filter((w) => w <= ctaPas.sirka);
 ---
 <Base
   title="Čistenie fasád, striech a dlažieb | Renovácia Povrchov"
   description="Vyčistíme fasádu bez maľovania — úspora približne 70 % oproti novému náteru. Skúšobná vzorka na mieste, impregnácia so zárukou 5 rokov. Hodnotenie 5,0 zo 119 recenzií."
-  faq={faq}
+  faq={faqFasady}
 >
   <Hero
     eyebrow="Čistenie a ochrana povrchov"
@@ -28,11 +39,11 @@ import { firma } from '../data/firma';
       'Impregnácia so zárukou 5 rokov, za príplatok až 10',
       'Platíte až po dokončení, žiadna záloha vopred',
     ]}
-    fotka={firma.fotky.hero}
-    fotkaAlt="Vyčistená fasáda rodinného domu"
+    fotka={hero.src}
+    fotkaAlt={hero.alt}
   >
-    <a slot="akcie" class="btn btn-invert btn-lg" href="/kontakt/">Chcem cenovú ponuku</a>
-    <a slot="akcie" class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+    <a slot="akcie" class="btn btn-primary btn-lg" href="/kontakt/">Chcem cenovú ponuku</a>
+    <a slot="akcie" class="btn btn-lg btn-invert-ghost" href={firma.telefonHref}>{firma.telefon}</a>
     <PriceCalculator />
   </Hero>
 
@@ -62,36 +73,21 @@ import { firma } from '../data/firma';
     </div>
   </section>
 
-  {realizacie.length > 0 ? (
-    <section class="sec sec--surface" id="realizacie">
-      <div class="wrap">
-        <div class="sec-head"><p class="eyebrow">Realizácie</p><h2>Pred a po</h2></div>
-        <div class="mriezka2">
-          {realizacie.map((r) => (
-            <figure class="real">
-              <img src={r.fotoPo ?? ''} alt={r.nazov} loading="lazy" />
-              <figcaption>
-                <h3>{r.nazov}</h3>
-                <p>{[r.mesto, r.plochaM2 ? r.plochaM2 + ' m²' : null, r.dni ? r.dni + ' deň' : null].filter(Boolean).join(' · ')}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+  <section class="sec sec--surface" id="realizacie">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Realizácie</p><h2>Pred a po</h2></div>
+      <div class="mriezka2">
+        {uvodne.map((f) => (
+          <figure class="real">
+            <Image src={f.src} alt={f.alt} widths={f.widths} loading="lazy" />
+            <figcaption>
+              <p>{f.alt}</p>
+            </figcaption>
+          </figure>
+        ))}
       </div>
-    </section>
-  ) : (
-    <section class="sec sec--surface" id="realizacie">
-      <div class="wrap">
-        <div class="sec-head"><p class="eyebrow">Realizácie</p><h2>Pred a po</h2>
-          <p>Toto je celý argument. Doplníme sem fotky z reálnych zákaziek s plochou, počtom dní a mestom.</p>
-        </div>
-        <div class="mriezka2">
-          <Placeholder popis="pred/po celej fasády" pomer="4 / 3" />
-          <Placeholder popis="pred/po štítu alebo detailu" pomer="4 / 3" />
-        </div>
-      </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <section class="sec">
     <div class="wrap">
@@ -100,13 +96,46 @@ import { firma } from '../data/firma';
     </div>
   </section>
 
-  <section class="sec sec--surface" id="otazky">
+  {recenzie.length > 0 && (
+    <section class="sec sec--surface" id="recenzie">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Recenzie</p>
+          <h2>Hodnotenie {firma.google.hodnotenie.toFixed(1).replace('.', ',')} zo {firma.google.pocetRecenzii} recenzií</h2>
+          <p>Vyberáme tie, ktoré hovoria konkrétne. Všetky nájdete na našom Google profile.</p>
+        </div>
+        <Reviews polozky={recenzie} limit={6} />
+        {firma.googleBusinessUrl && (
+          <p class="rec-viac">
+            <a href={firma.googleBusinessUrl} target="_blank" rel="noopener">
+              Pozrieť všetkých {firma.google.pocetRecenzii} hodnotení na Google
+            </a>
+          </p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <section class="sec" id="otazky">
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow">Časté otázky</p>
         <h2>Čo sa ľudia pýtajú pred objednaním</h2>
       </div>
-      <Faq polozky={faq} />
+      <Faq polozky={faqFasady} />
+    </div>
+  </section>
+
+  <section class="sec sec--navy">
+    <div class="wrap cta-pas cta-pas--foto">
+      <div>
+        <h2>Obhliadka a cenová ponuka zdarma</h2>
+        <p>Napíšte nám typ objektu a približnú plochu. Pri fasáde vieme cenu spočítať aj bez obhliadky.</p>
+        <a class="btn btn-primary btn-lg" href="#kontakt">Chcem cenovú ponuku</a>
+      </div>
+      <div class="cta-foto">
+        <Image src={ctaObrazok} alt={ctaPas.alt} widths={ctaSirky} loading="lazy" />
+      </div>
     </div>
   </section>
 
@@ -132,13 +161,23 @@ import { firma } from '../data/firma';
   .mriezka2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
   @media (max-width: 780px) { .mriezka2 { grid-template-columns: 1fr; } }
   .real { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .real :global(img) { display: block; width: 100%; height: auto; }
   .real figcaption { padding: 18px 22px 22px; }
-  .real h3 { font-size: 16.5px; }
-  .real p { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+  .real p { font-size: 15px; color: var(--text); }
+  .cta-pas.cta-pas--foto { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: stretch; justify-content: stretch; }
+  .cta-foto { min-height: 420px; border-radius: 6px; overflow: hidden; }
+  .cta-foto :global(img) { width: 100%; height: 100%; min-height: 420px; object-fit: cover; display: block; }
+  @media (max-width: 720px) {
+    .cta-pas.cta-pas--foto { grid-template-columns: 1fr; }
+    .cta-foto { order: -1; min-height: 260px; }
+    .cta-foto :global(img) { height: 260px; min-height: 260px; }
+  }
 
   .dva { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: start; }
   @media (max-width: 860px) { .dva { grid-template-columns: 1fr; gap: 36px; } }
   .pod { color: var(--muted); margin-top: 14px; max-width: 42ch; }
   .tel { display: inline-block; margin-top: 26px; font-family: var(--font-display); font-weight: 800; font-size: 28px; color: var(--navy); text-decoration: none; }
   .drobne { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .rec-viac { margin-top: 22px; }
+  .rec-viac a { color: var(--navy); font-weight: 600; text-decoration: none; }
 </style>

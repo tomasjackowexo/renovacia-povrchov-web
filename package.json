@@ -10,7 +10,8 @@
     "check": "astro check",
     "seo": "node scripts/check-meta.mjs && node --experimental-strip-types scripts/check-redirects.mjs",
     "contrast": "node scripts/check-contrast.mjs",
-    "overit": "npm run build && npm run seo && npm run contrast"
+    "overit": "npm run build && npm run seo && npm run contrast",
+    "vercel": "node --experimental-strip-types scripts/gen-vercel.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

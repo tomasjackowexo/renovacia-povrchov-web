@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import type { Fotka } from '../data/fotky';
+import { obrazok } from '../data/obrazky';
+
+interface Props {
+  polozky: Fotka[];
+  nadpis?: string;
+}
+const { polozky, nadpis } = Astro.props;
+const sirky = [480, 960];
+const karty = polozky.map((f) => {
+  const widths = sirky.filter((w) => w <= f.sirka);
+  return { ...f, src: obrazok(f.src), widths: widths.length ? widths : [f.sirka] };
+});
+---
+{karty.length > 0 && (
+  <section class="sec">
+    <div class="wrap">
+      {nadpis && (
+        <div class="sec-head"><h2>{nadpis}</h2></div>
+      )}
+      <div class="mriezka">
+        {karty.map((f) => (
+          <figure class="karta" style={`max-width: ${f.sirka}px`}>
+            <Image src={f.src} alt={f.alt} widths={f.widths} loading="lazy" />
+            <figcaption>{f.alt}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+<style>
+  .mriezka {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    justify-content: start;
+  }
+  @media (max-width: 900px) { .mriezka { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .mriezka { grid-template-columns: 1fr; } }
+  .karta {
+    margin: 0;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .karta :global(img) { display: block; width: 100%; height: auto; }
+  figcaption { padding: 12px 14px 14px; font-size: 13px; color: var(--muted); }
+</style>

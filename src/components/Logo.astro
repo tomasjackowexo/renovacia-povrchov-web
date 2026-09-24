@@ -1,5 +1,14 @@
 ---
+// Logo je BIELE — použiteľné len na tmavom podklade (navy).
+// Tmavý variant pre svetlé pozadie zatiaľ nemáme.
 interface Props { vyska?: number; class?: string }
 const { vyska = 34, class: klass = '' } = Astro.props;
 ---
-<img src="/img/logo.svg" alt="Renovácia Povrchov" height={vyska} class={klass} style={`height:${vyska}px;width:auto`} />
+<img
+  src="/img/logo.png"
+  alt="Renovácia Povrchov"
+  width="851"
+  height="190"
+  class={klass}
+  style={`height:${vyska}px;width:auto`}
+/>

@@ -24,7 +24,7 @@ const nav = [
     </nav>
     <div class="hdr-cta">
       <a class="hdr-tel" href={firma.telefonHref}>{firma.telefon}</a>
-      <a class="btn btn-invert" href="/kontakt/">Cenová ponuka</a>
+      <a class="btn btn-primary" href="/kontakt/">Cenová ponuka</a>
     </div>
     <button
       type="button"
@@ -45,7 +45,7 @@ const nav = [
   <nav id="mobilne-menu" aria-label="Mobilná navigácia" hidden>
     {nav.map((n) => <a class="polozka" href={n.href}>{n.text}</a>)}
     <a class="mobil-tel" href={firma.telefonHref}>{firma.telefon}</a>
-    <a class="btn btn-invert mobil-ponuka" href="/kontakt/">Cenová ponuka</a>
+    <a class="btn btn-primary mobil-ponuka" href="/kontakt/">Cenová ponuka</a>
   </nav>
 </header>
 

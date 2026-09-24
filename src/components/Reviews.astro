@@ -1,0 +1,91 @@
+---
+import type { Recenzia } from '../data/recenzie';
+
+interface Props {
+  polozky: Recenzia[];
+  limit?: number;
+  sluzba?: Recenzia['sluzba'][number];
+}
+const { polozky, limit, sluzba } = Astro.props;
+
+const filtrovane = sluzba ? polozky.filter((r) => r.sluzba.includes(sluzba)) : polozky;
+const zoznam = limit == null ? filtrovane : filtrovane.slice(0, limit);
+const hviezda = 'M8 .6 9.9 5.2 14.8 5.6 11 8.8 12.2 13.6 8 11 3.8 13.6 5 8.8 1.2 5.6 6.1 5.2Z';
+---
+{zoznam.length > 0 && (
+  <div class="mriezka">
+    {zoznam.map((r) => (
+      <article class="karta">
+        <p class="hviezdy">
+          <span aria-hidden="true">
+            {Array.from({ length: 5 }, (_, i) => (
+              <svg width="16" height="16" viewBox="0 0 16 16" class={i < r.hviezdy ? 'plna' : 'prazdna'}>
+                <path d={hviezda} />
+              </svg>
+            ))}
+          </span>
+          <span class="sr-only">Hodnotenie {r.hviezdy} z 5</span>
+        </p>
+        <p class="uvodzovka" aria-hidden="true">„</p>
+        <p class="text">{r.text}</p>
+        <p class="meno">{r.meno}</p>
+        <p class="datum">{r.datum}</p>
+      </article>
+    ))}
+  </div>
+)}
+
+<style>
+  .mriezka {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) { .mriezka { grid-template-columns: 1fr 1fr; } }
+
+  .karta {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 28px;
+  }
+  .hviezdy { display: flex; align-items: center; }
+  .hviezdy span[aria-hidden="true"] { display: flex; gap: 2px; }
+  .hviezdy svg { display: block; }
+  .plna { fill: var(--akcent); }
+  .prazdna { fill: var(--line); }
+  .uvodzovka {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--akcent);
+    opacity: 0.18;
+    line-height: 0.6;
+    margin: 10px 0 6px;
+  }
+  .text { flex: 1; font-size: 16px; line-height: 1.7; color: var(--text); }
+  .meno { margin-top: auto; padding-top: 18px; font-size: 15px; font-weight: 600; color: var(--text); }
+  .datum { margin-top: 2px; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .mriezka {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+    }
+    .mriezka::-webkit-scrollbar { display: none; }
+    .karta { flex: 0 0 85%; scroll-snap-align: start; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mriezka { scroll-behavior: auto; }
+  }
+</style>

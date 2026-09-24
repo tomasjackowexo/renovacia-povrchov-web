@@ -5,3 +5,7 @@ dist/
 .env.local
 .DS_Store
 Thumbs.db
+
+# odlozene Canva grafiky, nepatria na web ani do repozitara
+_fotky-nepouzite/
+_nepouzite-konfig/

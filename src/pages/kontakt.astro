@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import LeadForm from '../components/LeadForm.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { firma } from '../data/firma';
-import { vetaOPosobnosti } from '../data/posobnost';
 ---
 <Base
   title="Kontakt | Renovácia Povrchov"
@@ -22,7 +21,7 @@ import { vetaOPosobnosti } from '../data/posobnost';
           <li><span class="k">E-mail</span><span class="v"><a href={`mailto:${firma.email}`}>{firma.email}</a></span></li>
           <li><span class="k">Otváracie hodiny</span><span class="v">{firma.otvaracieHodiny ?? <span class="chip">doplniť</span>}</span></li>
           <li><span class="k">Fakturačné údaje</span><span class="v">{firma.pravnySubjekt}<br />{firma.ulica}, {firma.psc} {firma.mesto}<br />IČO {firma.ico} · DIČ {firma.dic}</span></li>
-          <li><span class="k">Pôsobnosť</span><span class="v">{vetaOPosobnosti}</span></li>
+          <li><span class="k">Pôsobnosť</span><span class="v">Západné a stredné Slovensko</span></li>
         </ul>
 
         <div class="soc-wrap"><SocialLinks /></div>

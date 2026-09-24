@@ -5,33 +5,49 @@ import TrustBar from '../components/TrustBar.astro';
 import PriceTable from '../components/PriceTable.astro';
 import Steps from '../components/Steps.astro';
 import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Placeholder from '../components/Placeholder.astro';
+import Galeria from '../components/Galeria.astro';
 import { sluzby } from '../data/sluzby';
-import { faq } from '../data/faq';
+import { galeria, heroSluzby } from '../data/fotky';
+import { faqFasady, faqHroby } from '../data/faq';
 import { firma } from '../data/firma';
+import { recenzie, type Recenzia } from '../data/recenzie';
+
+const recenziaPodlaSlugu: Record<string, Recenzia['sluzba'][number]> = {
+  'cistenie-fasady': 'fasada',
+  'cistenie-striech': 'strecha',
+  'cistenie-dlazby': 'dlazba',
+  'cistenie-hrobov': 'hroby',
+};
 
 export function getStaticPaths() {
   return sluzby.map((s) => ({ params: { sluzba: s.slug }, props: { s } }));
 }
 const { s } = Astro.props;
+const recKluc = recenziaPodlaSlugu[s.slug];
+const maRecenzie = Boolean(recKluc && recenzie.some((r) => r.sluzba.includes(recKluc)));
+const faqHrobove = new Set(['cistenie-hrobov', 'jednohroby', 'dvojhroby', 'pomniky', 'kamenarske-prace']);
+const faqPolozky = faqHrobove.has(s.slug) ? faqHroby : faqFasady;
+const f = heroSluzby[s.slug] ?? null;
 ---
 <Base
   title={s.metaTitle}
   description={s.metaDescription}
   sluzba={{ nazov: s.nazov, cenaOd: s.cenaOd }}
-  faq={s.slug === 'cistenie-fasady' ? faq : null}
+  faq={faqPolozky}
   drobcekyNazov={s.nazov}
 >
   <Hero
     eyebrow={s.nazov}
     nadpis={s.h1}
     perex={s.perex}
-    fotka={firma.fotky.hero}
-    fotkaAlt={`${s.nazov} — reálna realizácia`}
+    fotka={f?.src ?? null}
+    fotkaAlt={f?.alt ?? ''}
   >
-    <a slot="akcie" class="btn btn-invert btn-lg" href="#formular">Chcem cenovú ponuku</a>
-    <a slot="akcie" class="btn btn-invert-ghost btn-lg" href={firma.telefonHref}>{firma.telefon}</a>
+    <a slot="akcie" class="btn btn-primary btn-lg" href="#formular">Chcem cenovú ponuku</a>
+    <a slot="akcie" class:list={['btn', 'btn-lg', f ? 'btn-invert-ghost' : 'btn-outline']} href={firma.telefonHref}>{firma.telefon}</a>
     <div class="foto"><Placeholder popis={`${s.nazov.toLowerCase()} — reálna realizácia`} pomer="4 / 3" /></div>
   </Hero>
 
@@ -45,8 +61,20 @@ const { s } = Astro.props;
           <p>{b.text}</p>
         </div>
       ))}
+      {s.slug === 'cistenie-hrobov' && (
+        <div class="blok">
+          <p>Ak je kameň za hranicou renovácie, ponúkame aj nové pomníky.</p>
+          <p class="odkazy">
+            <a href="/jednohroby/">Jednohroby</a>
+            <a href="/dvojhroby/">Dvojhroby</a>
+            <a href="/pomniky/">Pomníky</a>
+          </p>
+        </div>
+      )}
     </div>
   </section>
+
+  <Galeria polozky={galeria[s.slug] ?? []} nadpis="Naše realizácie" />
 
   <section class="sec sec--sand">
     <div class="wrap">
@@ -66,7 +94,29 @@ const { s } = Astro.props;
   <section class="sec">
     <div class="wrap">
       <div class="sec-head"><p class="eyebrow">Časté otázky</p><h2>Čo sa ľudia pýtajú</h2></div>
-      <Faq polozky={faq} />
+      <Faq polozky={faqPolozky} />
+    </div>
+  </section>
+
+  {maRecenzie && recKluc && (
+    <section class="sec sec--surface">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Recenzie</p>
+          <h2>Z Google profilu</h2>
+        </div>
+        <Reviews polozky={recenzie} sluzba={recKluc} limit={3} />
+      </div>
+    </section>
+  )}
+
+  <section class="sec sec--navy">
+    <div class="wrap cta-pas">
+      <div>
+        <h2>Obhliadka a cenová ponuka zdarma</h2>
+        <p>Napíšte typ objektu a približnú plochu. Pri fasáde vieme cenu spočítať aj bez obhliadky.</p>
+      </div>
+      <a class="btn btn-primary btn-lg" href="#formular">Chcem cenovú ponuku</a>
     </div>
   </section>
 
@@ -88,6 +138,8 @@ const { s } = Astro.props;
     padding: 22px 24px 26px;
   }
   .blok--cena p { color: var(--text); }
+  .odkazy { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .odkazy a { color: var(--navy); font-weight: 600; text-decoration: none; }
   .poznamka { margin-top: 18px; font-size: 15px; }
   .poznamka a { color: var(--navy); font-weight: 600; text-decoration: none; }
   .uzky-form { max-width: 720px; }

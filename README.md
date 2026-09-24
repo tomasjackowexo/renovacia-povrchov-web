@@ -107,7 +107,28 @@ Po výbere hostingu (Vercel / Netlify) doplniť adaptér a API route.
 a GA4. Bez nej sa reklama nedá optimalizovať. Kód na vloženie je v komentári
 priamo v `src/pages/dakujeme.astro`.
 
+## Nasadenie
+
+Web je napojený na Vercel. Každý `git push` do vetvy `master` spustí build
+a nasadí výsledok.
+
+  Framework preset:  Astro
+  Build command:     npm run build
+  Output directory:  dist
+
+### vercel.json
+Obsahuje 301 presmerovania zo starých WordPress URL a dočasnú hlavičku
+`X-Robots-Tag: noindex`. Generuje sa zo `src/data/redirects.ts`:
+
+    npm run vercel
+
+Vercel číta `vercel.json` ešte pred buildom, takže sa nedá generovať počas
+neho — po každej zmene redirectov treba skript spustiť ručne a commitnúť.
+
 ## Pred spustením naostro
+0. **V `scripts/gen-vercel.mjs` prepnúť `NOINDEX` na `false`**, spustiť
+   `npm run vercel` a commitnúť. Kým je `true`, celý web má hlavičku
+   `noindex` a nedostane sa do Google vôbec.
 1. `npm run overit` — musí prejsť bez chýb
 2. Skontrolovať, že žiadna zo starých URL nekončí na 404
 3. Po nasadení odoslať novú sitemapu v Google Search Console

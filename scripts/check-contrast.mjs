@@ -18,6 +18,7 @@ const dvojice = [
   ['muted', 'paper'], ['muted', 'surface'], ['muted', 'sand'],
   ['navy', 'paper'], ['navy', 'surface'], ['navy', 'sand'],
   ['navy-600', 'paper'], ['navy-600', 'surface'], ['navy-600', 'sand'],
+  ['akcent', 'paper'], ['akcent', 'surface'],
 ];
 let chyby = 0;
 for (const [f, b] of dvojice) {
@@ -28,7 +29,7 @@ for (const [f, b] of dvojice) {
   if (!ok) chyby++;
 }
 // biely text na tmavých plochách
-for (const b of ['navy', 'navy-800', 'navy-900']) {
+for (const b of ['navy', 'navy-800', 'navy-900', 'akcent']) {
   const k = kontrast('#ffffff', t[b]);
   const ok = k >= 4.5;
   console.log(`${ok ? 'OK ' : 'ZLE'}  biela      na ${b.padEnd(8)} = ${k.toFixed(2)}`);

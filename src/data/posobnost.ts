@@ -1,6 +1,5 @@
-// Zoznam miest sa NEPOUŽÍVA na generovanie podstránok — lokálne vyhľadávanie
-// riešime platenou reklamou. Slúži len na vetu o pôsobnosti a na areaServed
-// v LocalBusiness schéme.
+// Používa sa UŽ LEN pre areaServed v štruktúrovaných dátach (Seo.astro).
+// Na stránke sa zoznam miest nikde nevypisuje — zámerne.
 export const mesta = [
   'Nitra', 'Zlaté Moravce', 'Topoľčany', 'Levice', 'Nové Zámky', 'Hlohovec',
   'Galanta', 'Piešťany', 'Trnava', 'Senec', 'Dunajská Streda', 'Prievidza',
@@ -10,6 +9,3 @@ export const mesta = [
 export const kraje = [
   'Nitriansky', 'Trnavský', 'Trenčiansky', 'Bratislavský', 'Žilinský', 'Banskobystrický',
 ];
-
-export const vetaOPosobnosti =
-  'Pôsobíme v mestách: ' + mesta.join(', ') + ' — a v ich okolí.';

@@ -1,0 +1,217 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/cistenie-fasady-nitra/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-nitra",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zlate-moravce/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zlate-moravce",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-topolcany/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-topolcany",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-levice/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-levice",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-nove-zamky/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-nove-zamky",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-hlohovec/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-hlohovec",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-galanta/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-galanta",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-piestany/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-piestany",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-trnava/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-trnava",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-senec/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-senec",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-dunajska-streda/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-dunajska-streda",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-prievidza/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-prievidza",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-trencin/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-trencin",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zilina/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zilina",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-banska-bystrica/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-banska-bystrica",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zvolen/",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-zvolen",
+      "destination": "/cistenie-fasady/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-dlazby-2/",
+      "destination": "/cistenie-dlazby/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-dlazby-2",
+      "destination": "/cistenie-dlazby/",
+      "permanent": true
+    },
+    {
+      "source": "/stavebne-prace/",
+      "destination": "/kamenarske-prace/",
+      "permanent": true
+    },
+    {
+      "source": "/stavebne-prace",
+      "destination": "/kamenarske-prace/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/poradna/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/poradna/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-cena/",
+      "destination": "/poradna/cistenie-fasady-cena/",
+      "permanent": true
+    },
+    {
+      "source": "/cistenie-fasady-cena",
+      "destination": "/poradna/cistenie-fasady-cena/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
+  ]
+}

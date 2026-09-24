@@ -44,8 +44,8 @@ img { max-width: 100%; display: block; }
 .sec-head h2 { font-size: clamp(27px, 3.6vw, 40px); }
 .sec-head p { color: var(--muted); font-size: 17px; }
 
-/* Tlačidlá — len modrá a biela, žiadna akcentná farba.
-   Na tmavom pozadí NIKDY .btn-primary, splynul by. */
+/* Primárne CTA je terakota s bielym textom. .btn-outline ostáva modrá.
+   --akcent nikdy ako text na --sand (kontrast padá pod 4.5). */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 9px;
   font-family: var(--font-display); font-weight: 700; font-size: 14px;
@@ -53,8 +53,8 @@ img { max-width: 100%; display: block; }
   cursor: pointer; text-decoration: none;
   transition: background 0.16s, border-color 0.16s, color 0.16s;
 }
-.btn-primary { background: var(--navy); color: #fff; border-color: var(--navy); }
-.btn-primary:hover { background: var(--navy-600); border-color: var(--navy-600); }
+.btn-primary { background: var(--akcent); color: #fff; border-color: var(--akcent); }
+.btn-primary:hover { background: var(--akcent-hover); border-color: var(--akcent-hover); }
 .btn-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
 .btn-outline:hover { background: var(--navy); color: #fff; }
 .btn-invert { background: #fff; color: var(--navy); border-color: #fff; }
@@ -63,7 +63,15 @@ img { max-width: 100%; display: block; }
 .btn-invert-ghost:hover { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
 .btn-lg { padding: 16px 32px; font-size: 15px; }
 .btn:focus-visible { outline: 3px solid var(--navy-600); outline-offset: 3px; }
+.btn-primary:focus-visible { outline-color: var(--akcent); }
 .btn-invert:focus-visible, .btn-invert-ghost:focus-visible { outline-color: #fff; }
+
+.sec--navy { background: var(--navy); color: #fff; }
+.sec--navy h2 { color: #fff; }
+.cta-pas { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.cta-pas p { margin-top: 10px; max-width: 52ch; color: rgba(255, 255, 255, 0.88); font-size: 17px; }
+.cta-pas .btn { flex: 0 0 auto; }
+@media (max-width: 720px) { .cta-pas { flex-direction: column; align-items: flex-start; } }
 
 .chip {
   display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
