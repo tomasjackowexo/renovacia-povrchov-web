@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "seo": "node scripts/check-meta.mjs && node scripts/check-redirects.mjs",
+    "seo": "node scripts/check-meta.mjs && node --experimental-strip-types scripts/check-redirects.mjs",
     "contrast": "node scripts/check-contrast.mjs",
     "overit": "npm run build && npm run seo && npm run contrast"
   },

@@ -93,6 +93,7 @@ const nav = [
     background: var(--navy); color: #fff;
   }
   header.site .wrap { display: flex; align-items: center; gap: 26px; padding-block: 14px; min-height: var(--header-h); }
+  .logo { flex: 0 0 auto; }
   nav.main { display: flex; gap: 22px; margin-left: auto; font-size: 14.5px; font-weight: 500; }
   nav.main a { text-decoration: none; color: rgba(255, 255, 255, 0.86); padding-block: 6px; border-bottom: 2px solid transparent; }
   nav.main a:hover { color: #fff; border-bottom-color: rgba(255, 255, 255, 0.6); }
@@ -145,6 +146,7 @@ const nav = [
   @media (max-width: 1040px) {
     nav.main { display: none; }
     .hdr-cta { margin-left: auto; }
+    .hdr-cta .btn { display: none; }
     .menu-btn { display: inline-flex; }
     header.site .wrap { gap: 12px; }
   }
